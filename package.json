@@ -1,5 +1,5 @@
 {
-  "name": "aryantools",
+  "name": "next-ant-ts",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.21.4",
+    "cors": "^2.8.5",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/gtag.js": "^0.0.10",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
