@@ -1,4 +1,13 @@
+const { PHASE_PRODUCTION_BUILD, PHASE_DEVELOPMENT_SERVER } = require('next/constants');
 /** @type {import('next').NextConfig} */
+const nextEnv = require('next-env')
+const dotenvLoad = require('dotenv-load')
+
+// loads env vars
+dotenvLoad()
+// creates plugin
+const withNextEnv = nextEnv()
+const withEnv = nextEnv()
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
@@ -13,4 +22,13 @@ const nextConfig = {
   // productionBrowserSourceMaps: true,
 }
 
-module.exports = nextConfig
+
+
+module.exports = (phase, { nextConfig }) => {
+  if (phase === PHASE_PRODUCTION_BUILD ? process.env.NODE_ENV === 'production' : null) {
+    console.log('Production build')
+  } if (phase === PHASE_DEVELOPMENT_SERVER) {
+    console.log('Development mode')
+  }
+  return withEnv({ nextConfig })
+}

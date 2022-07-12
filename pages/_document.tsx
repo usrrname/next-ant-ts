@@ -7,7 +7,7 @@ export default class NextDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            href="http://fonts.cdnfonts.com/css/sf-compact-display"
+            href="https://fonts.cdnfonts.com/css/sf-compact-display"
             rel="stylesheet"
           />
           <script async src={gtag} />
