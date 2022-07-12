@@ -9,3 +9,23 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Folder Structure
+```
+.
+├── README.md
+├── additional.d.ts
+├── components
+├── config.ts
+├── next-env.d.ts
+├── next.config.js
+├── node_modules
+├── package.json
+├── pages
+  ├── api/         <-- must stay at root of pages
+├── public
+├── styles
+├── tree.txt
+├── tsconfig.json
+└── yarn.lock
+```
