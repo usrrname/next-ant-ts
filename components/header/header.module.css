@@ -1,7 +1,7 @@
 .header {
   display: flex;
   text-align: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .header a {
   display: inline;
