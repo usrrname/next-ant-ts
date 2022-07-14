@@ -1,11 +1,19 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
+import { Page } from "../additional";
+
+type Props = AppProps & {
+  Component: Page;
+};
 
 const isProd = process.env.NODE_ENV === "production";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: Props) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  const Layout = Component.layout ?? Fragment;
+
   const router = useRouter();
 
   useEffect(() => {
@@ -24,5 +32,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events]);
 
-  return <Component {...pageProps} />;
+  return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
+  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
 }
