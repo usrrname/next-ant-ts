@@ -7,6 +7,7 @@ export default function SEO({ config }: any): JSX.Element {
   return (
     <Head>
       <title>{`${title} | ${siteTitle}`}</title>
+      <meta name="viewport" content="width=device-width" />
       <meta name="description" content={config.description} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />

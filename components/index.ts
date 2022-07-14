@@ -1,3 +1,5 @@
 export * from "./button/Button";
 export * from "./footer/Footer";
-export * from "./image/Image";
+export * from "./hero/Hero";
+export * from "./header/Header";
+export * from "./layout/Layout";

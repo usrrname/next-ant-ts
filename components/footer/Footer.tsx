@@ -9,6 +9,7 @@ type FooterProps = {
 };
 
 export const Footer: FC<FooterProps> = () => {
+  
   const { Footer } = Layout;
   return (
     <Footer style={footer}>
