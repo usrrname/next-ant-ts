@@ -1,0 +1,23 @@
+.ant-layout,
+.ant-layout-content {
+  display: flex;
+  height: 100vh;
+}
+
+.ant-card-head,
+.ant-card-body {
+  padding: 0;
+}
+
+.ant-card {
+  padding: 1rem;
+  min-width: 378px;
+  height: 128px;
+}
+.ant-row,
+.ant-space {
+  height: 170px;
+  flex-basis: row wrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}

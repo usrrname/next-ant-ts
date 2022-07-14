@@ -1,4 +1,4 @@
-import { Card, Space } from "antd";
+import { Card } from "antd";
 import { CardMetaProps } from "antd/lib/card";
 import Typography from "antd/lib/typography";
 import styles from "./Hero.module.css";

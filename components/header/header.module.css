@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  text-align: center;
+  justify-content: start;
+}
+.header a {
+  display: inline;
+  flex-grow: 1;
+}

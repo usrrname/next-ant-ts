@@ -2,17 +2,16 @@ import { Layout } from "antd";
 import Link from "next/link";
 import React, { FC } from "react";
 import { LinkButton } from "../button/Button";
-import footer from "./footer.module.css";
+import styles from "./footer.module.css";
 
 type FooterProps = {
   children?: React.ReactNode;
 };
 
 export const Footer: FC<FooterProps> = () => {
-  
   const { Footer } = Layout;
   return (
-    <Footer style={footer}>
+    <Footer className={styles.footer}>
       <Link href="terms" passHref>
         <LinkButton type="link" href="terms" role={"link"}>
           Terms of Use
