@@ -9,6 +9,7 @@ dotenvLoad()
 const withNextEnv = nextEnv()
 const withEnv = nextEnv()
 const nextConfig = {
+  swcMinify: true,
   poweredByHeader: false,
   reactStrictMode: true,
   pageExtensions: ['mdx', 'md', 'tsx', 'ts'],
