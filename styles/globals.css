@@ -1,10 +1,12 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 html,
 body {
+  touch-action: manipulation;
   padding: 0;
   margin: 0;
-  font-family: 'SF Compact Display', 'Helvetica Neue', sans-serif;
+  font-family: "SF Compact Display", "SF Pro Icons", "Helvetica Neue",
+    sans-serif;
 }
 
 * {
