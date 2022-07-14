@@ -1,0 +1,9 @@
+.Row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(3, 378px);
+  grid-template-rows: minmax(auto);
+  overflow-x: scroll;
+}
