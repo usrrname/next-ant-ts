@@ -1,5 +1,9 @@
-export const Terms = () => {
-  return <p>Index Page For Terms</p>;
+const Terms = ({ people }: any) => {
+  return (
+    <>
+      <pre>{people}</pre>
+    </>
+  );
 };
 
 export default Terms;

@@ -3,11 +3,22 @@ const { PHASE_PRODUCTION_BUILD, PHASE_DEVELOPMENT_SERVER } = require('next/const
 const nextEnv = require('next-env')
 const dotenvLoad = require('dotenv-load')
 
+
 // loads env vars
 dotenvLoad()
 // creates plugin
 const withNextEnv = nextEnv()
 const withEnv = nextEnv()
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: "@mdx-js/react",
+  },
+})
+
 const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
@@ -17,12 +28,12 @@ const nextConfig = {
     buildActivityPosition: 'bottom-right',
   },
   images: {
+    domains: ["randomuser.me", "mocky.io", "fonts.cdnfonts.com"],
     deviceSizes: [360, 375, 414, 640, 768, 828, 1080, 1200, 1920, 2048, 3840],
     formats: ['image/webp'],
   },
   // productionBrowserSourceMaps: true,
-}
-
+};
 
 
 module.exports = (phase, { nextConfig }) => {
@@ -31,5 +42,6 @@ module.exports = (phase, { nextConfig }) => {
   } if (phase === PHASE_DEVELOPMENT_SERVER) {
     console.log('Development mode')
   }
-  return withEnv({ nextConfig })
+  const mdxConfig = withMDX(nextConfig)
+  return withEnv(mdxConfig)
 }

@@ -1,5 +1,5 @@
-export const Page = () => {
+export const About = () => {
   return <p>Index Page For About</p>;
 };
 
-export default Page;
+export default About;

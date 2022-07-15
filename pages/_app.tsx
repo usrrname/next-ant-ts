@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
 import { Page } from "../additional";
 
-type Props = AppProps & {
+export type NextAppProps = AppProps & {
   Component: Page;
+  userAgent?: string;
 };
 
 const isProd = process.env.NODE_ENV === "production";
 
-export default function App({ Component, pageProps }: Props) {
+export default function App({ Component, pageProps }: NextAppProps) {
+
   const getLayout = Component.getLayout ?? ((page) => page);
   const Layout = Component.layout ?? Fragment;
 
@@ -32,6 +34,11 @@ export default function App({ Component, pageProps }: Props) {
     }
   }, [router.events]);
 
-  return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
-  // return getLayout(<Layout><Component {...pageProps} /></Layout>)
+  // return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
+  return getLayout(
+    <Layout>
+      {pageProps.userAgent}
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
