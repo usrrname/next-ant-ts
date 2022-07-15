@@ -1,5 +1,5 @@
 import { RadarChartOutlined } from "@ant-design/icons";
-import { Row, Card } from "antd";
+import { Card } from "antd";
 import Title from "antd/lib/typography/Title";
 import styles from "./CardRow.module.css";
 

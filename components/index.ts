@@ -1,5 +1,6 @@
 export * from "./button/Button";
 export * from "./card-row/CardRow";
+export * from './chart-card/ChartCard';
 export * from "./footer/Footer";
 export * from "./hero/Hero";
 export * from "./header/Header";

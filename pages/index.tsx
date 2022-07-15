@@ -2,8 +2,9 @@ import { Typography, Col, Progress } from "antd";
 import { Page } from "../additional";
 import { Hero, Layout } from "../components";
 import { CardRow } from "../components/card-row/CardRow";
+import { ChartCard } from "../components/chart-card/ChartCard";
 import UploadWithCrop from "../components/uploader/Uploader";
-import { fetcher, useUser } from "../hooks/useUser";
+import { useUser } from "../hooks/useUser";
 
 const Home: Page = ({ props }: any) => {
   const { data, isError, isLoading } = useUser(
@@ -27,6 +28,11 @@ const Home: Page = ({ props }: any) => {
         </Col>
       </Layout>
       <UploadWithCrop />
+      <ChartCard
+        description="Ant Design, a design language for background applications, is refined by Ant UED Team."
+        percent={75}
+        title="Comparison Measure"
+      />
     </>
   );
 };

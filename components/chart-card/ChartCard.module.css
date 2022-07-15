@@ -1,0 +1,5 @@
+.Chartcard.ant-card-body {
+  display: flex;
+  flex-basis: row wrap;
+  justify-content: space-evenly;
+}
