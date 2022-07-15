@@ -1,9 +1,18 @@
-import { Typography, Col } from "antd";
-import type { NextPage } from "next";
+import { Typography, Col, Progress } from "antd";
+import { Page } from "../additional";
 import { Hero, Layout } from "../components";
 import { CardRow } from "../components/card-row/CardRow";
+import UploadWithCrop from "../components/uploader/Uploader";
+import { fetcher, useUser } from "../hooks/useUser";
 
-const Home: NextPage = () => {
+const Home: Page = ({ props }: any) => {
+  const { data, isError, isLoading } = useUser(
+    "https://randomuser.me/api/?results"
+  );
+  if (isError) console.warn("An error has occurred.");
+  if (isLoading || !data) {
+    return <Progress status="active" />;
+  }
   const { Paragraph, Text } = Typography;
   return (
     <>
@@ -17,6 +26,7 @@ const Home: NextPage = () => {
           <CardRow />
         </Col>
       </Layout>
+      <UploadWithCrop />
     </>
   );
 };
