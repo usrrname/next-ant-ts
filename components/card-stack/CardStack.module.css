@@ -8,10 +8,16 @@
 }
 .CardStack__wrapper {
   display: flex;
+  flex-basis: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .CardStack__wrapper.ant-avatar {
   margin-right: 1rem;
 }
-.CardStack div.ant-card-body {
+.CardStack .ant-card div.ant-card-body {
   padding: 0;
+}
+.CardStack .ant-progress-text {
+  font-size: 1.75rem;
 }
