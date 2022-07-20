@@ -12,9 +12,11 @@ export type NextAppProps = AppProps & {
 const isProd = process.env.NODE_ENV === "production";
 
 export default function App({ Component, pageProps }: NextAppProps) {
-
   const getLayout = Component.getLayout ?? ((page) => page);
   const Layout = Component.layout ?? Fragment;
+
+  //TODO: Remove pre-deploy
+  console.log("PageProps: ", pageProps);
 
   const router = useRouter();
 
@@ -26,6 +28,7 @@ export default function App({ Component, pageProps }: NextAppProps) {
         });
       };
       router.events.on("routeChangeComplete", handleRouteChange);
+
       return () => {
         router.events.off("routeChangeComplete", handleRouteChange);
       };
@@ -37,7 +40,6 @@ export default function App({ Component, pageProps }: NextAppProps) {
   // return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
   return getLayout(
     <Layout>
-      {pageProps.userAgent}
       <Component {...pageProps} />
     </Layout>
   );
