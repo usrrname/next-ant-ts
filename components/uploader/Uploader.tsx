@@ -1,17 +1,38 @@
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import { Image as AntImage } from "antd";
 import ImgCrop from "antd-img-crop";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import type {
+  RcFile,
+  UploadChangeParam,
+  UploadFile,
+  UploadProps,
+} from "antd/es/upload/interface";
 import React, { useState } from "react";
 import { Button } from "../button/Button";
 
-const UploadWithCrop: React.FC = () => {
+const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result as string));
+  reader.readAsDataURL(img);
+};
+
+export const Uploader: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setImage] = useState<UploadFile>({
     uid: "-1",
     name: "notexist1.png",
     status: "done",
     url: "img/notexist1.png",
   });
+
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+  const [imageUrl, setImageUrl] = useState<string>();
 
   const [fileList, setFileList] = useState<UploadFile[]>([
     {
@@ -28,8 +49,25 @@ const UploadWithCrop: React.FC = () => {
     },
   ]);
 
-  const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  const onChange: UploadProps["onChange"] = (
+    info: UploadChangeParam<UploadFile>
+  ) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj as RcFile, (url) => {
+        setLoading(false);
+        setImageUrl(url);
+        setImage(info.file);
+      });
+    }
+
+    if (info.fileList.length > 3) {
+      setFileList(fileList);
+    }
   };
 
   const onPreview = async (file: UploadFile) => {
@@ -45,8 +83,10 @@ const UploadWithCrop: React.FC = () => {
     setImage(file);
   };
 
-  const handleClick = () => {
-    console.log(selectedImage);
+  const handleClick = (event: any) => {
+    event.preventDefault();
+    onPreview(selectedImage);
+    // console.log(selectedImage);
   };
 
   return (
@@ -55,26 +95,27 @@ const UploadWithCrop: React.FC = () => {
 
       <ImgCrop rotate>
         <Upload
-          action="api/faces"
+          accept="jpeg,png,webp,jpg"
+          action={`${process.env.NEXT_PUBLIC_API_URL}/face}`}
           listType="picture-card"
           fileList={fileList}
+          showUploadList={true}
           onChange={onChange}
           onPreview={onPreview}
+          maxCount={3}
         >
-          {fileList.length < 4 && "+ Upload"}
+          {fileList.length < 3 && "+ Upload"}
         </Upload>
       </ImgCrop>
       {/* TODO: onclick should trigger modal with consent */}
       <Button
         target="_self"
+        href="#ant-image-mask"
         className="block"
-        href="#"
-        onClick={() => handleClick}
+        onClick={(e) => handleClick(e)}
       >
         Submit
       </Button>
     </>
   );
 };
-
-export default UploadWithCrop;
