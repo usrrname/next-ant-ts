@@ -1,0 +1,17 @@
+.CardStack {
+  margin: 1rem 0;
+  border: none;
+}
+
+.CardStack .ant-card {
+  border: none;
+}
+.CardStack__wrapper {
+  display: flex;
+}
+.CardStack__wrapper.ant-avatar {
+  margin-right: 1rem;
+}
+.CardStack div.ant-card-body {
+  padding: 0;
+}
