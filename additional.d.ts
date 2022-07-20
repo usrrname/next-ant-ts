@@ -18,3 +18,8 @@ export type PostType = {
   };
   content: string;
 };
+
+export type PostProps = {
+  post: PostType;
+  allPosts: PostType[];
+};
