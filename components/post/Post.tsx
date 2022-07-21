@@ -1,7 +1,10 @@
+import { MDXProvider } from "@mdx-js/react";
+import { Components } from "@mdx-js/react/lib";
 import Image, { ImageProps } from "next/image";
 import { Typography, Divider } from "antd";
 import { TypographyProps } from "antd/lib/typography/Typography";
 import { LinkButton } from "../button/Button";
+import { PostType } from "../../typings";
 
 export const ResponsiveImage = (props: ImageProps) => (
   <Image alt={props.alt} layout="responsive" {...props} />
@@ -43,3 +46,19 @@ export const MarkdownComponents = {
   u: UnderlinedText,
   blockquote: Blockquote,
 };
+
+type PostProviderProps = PostType & {
+  children?: React.ReactNode;
+  disableParentContext?: boolean;
+  components: Components;
+};
+
+export default function FindMarkdownComponent(props: PostProviderProps) {
+  const { children, disableParentContext, components } = props;
+  // console.log(props);
+  return (
+    <MDXProvider components={components}>
+      <main {...props}>{children}</main>
+    </MDXProvider>
+  );
+}

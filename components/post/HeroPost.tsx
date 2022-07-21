@@ -1,7 +1,6 @@
-import Paragraph from "antd/lib/skeleton/Paragraph";
-import Link from "next/link";
-import { PostType } from "../../additional";
-import { MarkdownComponents, ResponsiveImage } from "./Post";
+import { Components } from "@mdx-js/react/lib";
+import { PostType } from "../../typings";
+import Post, { MarkdownComponents, ResponsiveImage } from "./Post";
 
 export const HeroPost = ({
   title,
@@ -11,23 +10,28 @@ export const HeroPost = ({
   author,
   content,
   slug,
+  ...props
 }: PostType) => {
   return (
-    <section>
-      <ResponsiveImage title={title} src={coverImage} alt="" />
+    <>
+      {coverImage && (
+        <ResponsiveImage
+          title={title}
+          src={coverImage ?? ""}
+          alt=""
+          width="100%"
+          height="373"
+        />
+      )}
+      {excerpt && <MarkdownComponents.p>{excerpt}</MarkdownComponents.p>}
+      {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
 
-      <div className="">
-        <div>
-          <MarkdownComponents.h3>
-            <Link as={`/posts/${slug}`} href="/posts/[slug]">
-              <a className="hover:underline">{title}</a>
-            </Link>
-          </MarkdownComponents.h3>
-        </div>
-        <div>
-          <Paragraph>{excerpt}</Paragraph>
-        </div>
-      </div>
-    </section>
+      {/* TODO: Get MDXProvider working with MarkdownComponents
+        <Post
+        components={MarkdownComponents as Components}
+        slug={slug}
+        {...props}
+      /> */}
+    </>
   );
 };
