@@ -7,6 +7,5 @@ export * from "./hero/Hero";
 export * from "./post/HeroPost";
 export * from "./header/Header";
 export * from "./layout/Layout";
-export * from "./layout/PostLayout";
 export * from "./post/Post";
 export * from "./uploader/Uploader";
