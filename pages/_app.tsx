@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
-import { Page } from "../additional";
+import { Page } from "../typings";
 
 export type NextAppProps = AppProps & {
   Component: Page;
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: NextAppProps) {
   const Layout = Component.layout ?? Fragment;
 
   //TODO: Remove pre-deploy
-  console.log("PageProps: ", pageProps);
+  // console.log("PageProps: ", pageProps);
 
   const router = useRouter();
 
@@ -37,7 +37,6 @@ export default function App({ Component, pageProps }: NextAppProps) {
     }
   }, [router.events]);
 
-  // return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
   return getLayout(
     <Layout>
       <Component {...pageProps} />

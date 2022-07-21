@@ -2,7 +2,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Col, Space } from "antd";
 import { GetServerSideProps } from "next";
 import { FC } from "react";
-import { Page } from "../additional";
+import { Page } from "../typings";
 import {
   CardStack,
   Hero,
@@ -17,8 +17,7 @@ import { parse } from "next-useragent";
 // actually happens on server side
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { req } = context;
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/`, {
+  const res = await fetch(`${process.env.PYTHON_PUBLIC_API_URL}/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -29,19 +28,19 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     },
   });
 
-  const token1 = await res.json();
-  console.log("/token response: ", token1);
+  const data = await res.json();
+  console.log("/token response: ", data);
 
   return {
     props: {
-      token1,
+      token: data,
       userAgent: parse(context.req.headers["user-agent"]),
     },
   };
 };
 
 export const handleSubmit = async (token: string, dataString: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/token1`, {
+  const response = await fetch(`${process.env.PYTHON_PUBLIC_API_URL}/token1`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,17 +57,17 @@ export const handleSubmit = async (token: string, dataString: string) => {
 
 const Page: FC<Page> = ({ ...props }) => {
   const data = { ...props };
-  const { token1 } = data;
-  console.log("token1 fetched from 8000/: ", token1);
+  const { token } = data as any;
+  console.log("token1 fetched from 8000/: ", token);
 
-  if (!data.hasOwnProperty("token1")) {
+  if (!data.hasOwnProperty("token")) {
     return (
       <Space direction="vertical">
-        <LoadingOutlined /> Loading...
+        <LoadingOutlined /> <span>Loading...</span>
       </Space>
     );
   } else {
-    handleSubmit(token1, "dummy-string");
+    handleSubmit(token, "dummy-string");
   }
 
   return (
