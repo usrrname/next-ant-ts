@@ -96,7 +96,7 @@ export const Uploader: React.FC = () => {
       <ImgCrop rotate>
         <Upload
           accept="jpeg,png,webp,jpg"
-          action={`${process.env.NEXT_PUBLIC_API_URL}/face}`}
+          action={`${process.env.PYTHON_PUBLIC_API_URL}/face`}
           listType="picture-card"
           fileList={fileList}
           showUploadList={true}
