@@ -14,7 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```
 .
 ├── README.md
-├── additional.d.ts
+├── typings.d.ts
 ├── components
 ├── config.ts
 ├── next-env.d.ts
@@ -23,6 +23,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ├── package.json
 ├── pages
   ├── api  --------------- must stay at root of pages
+  ├── _posts ------------- markdown files go here
+  ├── posts -------------- contains .tsx for to-be-generated markdown-to-view component
 ├── public --------------- static assets go in here
 ├── styles
 ├── tree.txt

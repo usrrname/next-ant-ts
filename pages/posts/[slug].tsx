@@ -1,41 +1,60 @@
-import ErrorPage from "next/error";
-import { MDXProvider } from "@mdx-js/react";
-import { HeroPost, MarkdownComponents } from "../../components";
 import { useRouter } from "next/router";
-import { Components } from "@mdx-js/react/lib";
+import { PostProps } from "../../typings";
+import ErrorPage from "next/error";
+import { getPostBySlug, getAllPosts } from "../../util/api";
+import { HeroPost } from "../../components";
+import Head from "next/head";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Layout, Typography } from "antd";
 import markdownToHtml from "../../util/markdownToHtml";
-import { getPostBySlug, getAllPosts } from "../../util/slug.util";
+import SEO from "../../components/seo/seo";
+import { Content } from "antd/lib/layout/layout";
 
-export default function Post({ post, allPosts }: any) {
+export default function Slug({ post, allPosts }: PostProps) {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
+  const { Text, Paragraph } = Typography;
   return (
-    <MDXProvider components={MarkdownComponents as Components}>
-      <HeroPost
-        slug={post.slug}
-        title={post.title}
-        date={post.date}
-        coverImage={post.coverImage}
-        author={post.author}
-        excerpt={post.excerpt}
-        ogImage={{
-          url: "",
-        }}
-        content={""}
-      />
-    </MDXProvider>
+    <Layout>
+      {router.isFallback ? (
+        <>
+          <LoadingOutlined /> <Text>Loading…</Text>
+        </>
+      ) : (
+        <>
+          <Head>
+            <SEO title={post.title} />
+            <meta property="og:image" content={post?.ogImage?.url} />
+          </Head>
+          <Content>
+            <HeroPost
+              title={post.title}
+              coverImage={post.coverImage}
+              date={post.date}
+              author={post.author}
+              slug={post.slug}
+              excerpt={post.excerpt}
+              ogImage={{
+                url: post?.ogImage?.url ?? "",
+              }}
+              content={post.content}
+            />
+          </Content>
+        </>
+      )}
+    </Layout>
   );
 }
 
-type Params = {
+type PostParams = {
   params: {
     slug: string;
   };
 };
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({ params }: PostParams) {
   const post = getPostBySlug(params.slug, [
     "title",
     "date",
